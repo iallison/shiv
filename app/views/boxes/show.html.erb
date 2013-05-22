@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @box.name %>
+</p>
+
+<p>
+  <b>Location:</b>
+  <%= @box.location %>
+</p>
+
+<p>
+  <b>Serial:</b>
+  <%= @box.serial %>
+</p>
+
+<p>
+  <b>Model:</b>
+  <%= @box.model %>
+</p>
+
+<p>
+  <b>Purchase date:</b>
+  <%= @box.purchase_date %>
+</p>
+
+<p>
+  <b>Vendor:</b>
+  <%= @box.vendor %>
+</p>
+
+
+<%= link_to 'Edit', edit_box_path(@box) %> |
+<%= link_to 'Back', boxes_path %>

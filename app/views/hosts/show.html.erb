@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @host.name %>
+</p>
+
+<p>
+  <b>Kernel:</b>
+  <%= @host.kernel %>
+</p>
+
+<p>
+  <b>Operating system:</b>
+  <%= @host.operating_system %>
+</p>
+
+<p>
+  <b>Os release:</b>
+  <%= @host.os_release %>
+</p>
+
+<p>
+  <b>Ip:</b>
+  <%= @host.ip %>
+</p>
+
+
+<%= link_to 'Edit', edit_host_path(@host) %> |
+<%= link_to 'Back', hosts_path %>
