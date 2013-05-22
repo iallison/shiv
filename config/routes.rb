@@ -3,6 +3,8 @@ Shiv::Application.routes.draw do
   resources :hosts
   resources :boxes
 
+  match 'search/searchAll' => 'search#searchAll'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
