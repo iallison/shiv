@@ -10,7 +10,6 @@
     <th>Box</th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
 
 <% @hosts.each do |host| %>
@@ -21,7 +20,6 @@
     <td><%= host.os_release %></td>
     <td><%= host.ip %></td>
     <td><%= link_to host.box.name, box_path(host.box.id) %></td>
-    <td><%= link_to 'Show', host %></td>
     <td><%= link_to 'Edit', edit_host_path(host) %></td>
     <td><%= link_to 'Destroy', host, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>

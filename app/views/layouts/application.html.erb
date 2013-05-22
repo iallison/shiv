@@ -14,12 +14,7 @@
       <div class="navbar">
         <div class="navbar-inner">
           <a class="brand" href="#">SDSC Shiv</a>
-
-          <form class="navbar-form pull-right">
-            <input type="text" value="render :partial => 'shared/search_form'">
-            <button type="submit" class="btn">Search</button>
-          </form>
-
+          <%= render :partial => "shared/search_form" %>
         </div>
       </div>
 
@@ -28,7 +23,7 @@
 
         <div class="span3">
           <div class="well">
-            render :partial => "shared/menu"
+            <%= render :partial => "shared/menu" %>
           </div>
         </div>
 
@@ -42,7 +37,7 @@
     </div>
 
     <div class="footer">
-      render :partial => "shared/footer"
+      <%= render :partial => "shared/footer" %>
     </div>
 
   </body>
