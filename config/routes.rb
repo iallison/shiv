@@ -1,7 +1,6 @@
 Shiv::Application.routes.draw do
+  root :to => 'hosts#index'
   resources :hosts
-
-
   resources :boxes
 
 

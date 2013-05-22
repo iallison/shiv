@@ -1,14 +1,49 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Shiv</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title><%= full_title(yield(:title)) %></title>
+    <%= stylesheet_link_tag    "application", media: "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="navbar">
+        <div class="navbar-inner">
+          <a class="brand" href="#">SDSC Shiv</a>
 
-<%= yield %>
+          <form class="navbar-form pull-right">
+            <input type="text" value="render :partial => 'shared/search_form'">
+            <button type="submit" class="btn">Search</button>
+          </form>
 
-</body>
+        </div>
+      </div>
+
+
+      <div class="row">
+
+        <div class="span3">
+          <div class="well">
+            render :partial => "shared/menu"
+          </div>
+        </div>
+
+        <div class="span9">
+          <div class="hero-unit">
+            <%= yield -%>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      render :partial => "shared/footer"
+    </div>
+
+  </body>
 </html>
