@@ -14,7 +14,7 @@
 
 <% @hosts.each do |host| %>
   <tr>
-    <td><%= host.name %></td>
+    <td><%= link_to host.name, host_path(host.id) %></td>
     <td><%= host.kernel %></td>
     <td><%= host.operating_system %></td>
     <td><%= host.os_release %></td>

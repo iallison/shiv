@@ -25,6 +25,13 @@
   <%= @host.ip %>
 </p>
 
+<b>Tags:</b>
+<% @host.tags.any? %>
+<ul>
+<% @host.tags.sort.each do |tag| %>
+  <li><%= link_to tag.name, tagged_url(:tag => tag.name) %></li>
+<% end %>
+
 
 <%= link_to 'Edit', edit_host_path(@host) %> |
 <%= link_to 'Back', hosts_path %>

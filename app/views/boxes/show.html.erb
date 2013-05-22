@@ -30,6 +30,14 @@
   <%= @box.vendor %>
 </p>
 
+<b>Tags:</b>
+<% @box.tags.any? %>
+<ul>
+<% @box.tags.sort.each do |tag| %>
+  <li><%= link_to tag.name, tagged_url(:tag => tag.name) %></li>
+<% end %>
+
+
 
 <%= link_to 'Edit', edit_box_path(@box) %> |
 <%= link_to 'Back', boxes_path %>

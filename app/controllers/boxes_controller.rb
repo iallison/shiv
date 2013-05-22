@@ -80,4 +80,13 @@ class BoxesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def tagged
+    if params[:tag].present?
+      @hosts = Box.tagged_with(params[:tag])
+    else
+      @hosts = Box.boxall
+    end
+  end
+
 end

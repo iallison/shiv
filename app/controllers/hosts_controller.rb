@@ -80,4 +80,14 @@ class HostsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def tagged
+    if params[:tag].present?
+      @hosts = Host.tagged_with(params[:tag])
+    else
+      @hosts = Host.hostall
+    end
+  end
+
+
 end
