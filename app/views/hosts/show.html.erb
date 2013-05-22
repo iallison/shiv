@@ -28,9 +28,18 @@
 <b>Tags:</b>
 <% @host.tags.any? %>
 <ul>
-<% @host.tags.sort.each do |tag| %>
-  <li><%= link_to tag.name, tagged_url(:tag => tag.name) %></li>
-<% end %>
+  <% @host.tags.sort.each do |tag| %>
+    <li><%= link_to tag.name, tagged_url(:tag => tag.name) %></li>
+  <% end %>
+</ul>
+
+<b>Notes:</b>
+<% @host.comments.any? %>
+<ul>
+  <% @host.comments.sort.each do |comment| %>
+    <li><%= comment.comment %></li>
+  <% end %>
+</ul>
 
 
 <%= link_to 'Edit', edit_host_path(@host) %> |
