@@ -7,6 +7,7 @@ class HostsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @hosts }
+      format.yaml { render :text => @hosts.to_yaml }
     end
   end
 
@@ -18,6 +19,7 @@ class HostsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @host }
+      format.yaml { render :text => @host.to_yaml }
     end
   end
 
