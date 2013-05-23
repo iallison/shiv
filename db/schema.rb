@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130522201710) do
+ActiveRecord::Schema.define(:version => 20130523160857) do
+
+  create_table "box_attributes", :force => true do |t|
+    t.integer  "box_id",     :null => false
+    t.text     "name",       :null => false
+    t.text     "value",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "box_attributes", ["box_id"], :name => "index_box_attributes_on_box_id"
 
   create_table "boxes", :force => true do |t|
     t.string   "name"
@@ -37,6 +47,16 @@ ActiveRecord::Schema.define(:version => 20130522201710) do
   add_index "comments", ["commentable_id"], :name => "index_comments_on_commentable_id"
   add_index "comments", ["commentable_type"], :name => "index_comments_on_commentable_type"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+
+  create_table "host_attributes", :force => true do |t|
+    t.integer  "host_id",    :null => false
+    t.text     "name",       :null => false
+    t.text     "value",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "host_attributes", ["host_id"], :name => "index_host_attributes_on_host_id"
 
   create_table "hosts", :force => true do |t|
     t.string   "name"

@@ -3,4 +3,5 @@ class Box < ActiveRecord::Base
   has_many :hosts
   acts_as_taggable_on :tags
   acts_as_commentable
+  has_eav_behavior
 end
