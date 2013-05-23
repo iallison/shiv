@@ -34,6 +34,7 @@ group :development, :test do
   gem 'growl'
   gem 'capybara'
   gem 'factory_girl_rails'
+  gem 'awesome_print'
 end
 
 # To use ActiveModel has_secure_password
