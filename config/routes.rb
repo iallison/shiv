@@ -4,7 +4,12 @@ Shiv::Application.routes.draw do
   resources :boxes
 
   match 'search/searchAll' => 'search#searchAll'
-  match 'tagged' => 'hosts#tagged', :as => 'tagged'
+  #match 'tagged' => 'hosts#tagged', :as => 'tagged'
+
+  match 'cli/list_hosts' => 'hosts#list_hosts'
+  match 'cli/list_boxes' => 'boxes#list_boxes'
+  match 'cli/searchAll' => 'search#searchAll'
+  match 'cli/searchHost' => 'search#searchHost'
 
 
   # The priority is based upon order of creation:

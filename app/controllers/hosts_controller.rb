@@ -13,13 +13,21 @@ class HostsController < ApplicationController
 
   # GET /hosts/1
   # GET /hosts/1.json
+  # GET /hosts/1.yaml
   def show
     @host = Host.find(params[:id])
 
+    result = Hash.new
+    result[:Host] = [@host.name]
+    result.update(:Hostings => [ @host.box.name ] ) unless @host.box_id.nil?
+    result.update(:Traits => [ @host ])
+    result.update(:ExtendedTraits => [ @host.host_attributes.map { |a| {"#{a.name}" =>  "#{a.value}"} } ].flatten) unless @host.host_attributes.nil?
+    result.update(:Tags => @host.tags.map {|t| "#{t.name}" } ).flatten unless @host.tags.empty?
+
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @host }
-      format.yaml { render :text => @host.to_yaml }
+      format.json { render json: result }
+      format.yaml { render :text => result.to_yaml }
     end
   end
 
@@ -60,8 +68,12 @@ class HostsController < ApplicationController
   def update
     @host = Host.find(params[:id])
 
+    params[:host].each_with_index do |p, blah|
+      @host.send("#{p[0]}=", p[1])
+    end
+
     respond_to do |format|
-      if @host.update_attributes(params[:host])
+      if @host.save
         format.html { redirect_to @host, notice: 'Host was successfully updated.' }
         format.json { head :no_content }
       else
@@ -88,6 +100,15 @@ class HostsController < ApplicationController
       @hosts = Host.tagged_with(params[:tag])
     else
       @hosts = Host.hostall
+    end
+  end
+
+  def list_hosts
+    @hosts = Host.select(:name).all.map(&:name)
+
+    respond_to do |format|
+      format.json { render json: @hosts}
+      format.yaml { render :text => @hosts.to_yaml }
     end
   end
 

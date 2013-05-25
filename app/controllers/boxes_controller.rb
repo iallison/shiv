@@ -83,10 +83,20 @@ class BoxesController < ApplicationController
 
   def tagged
     if params[:tag].present?
-      @hosts = Box.tagged_with(params[:tag])
+      @boxes = Box.tagged_with(params[:tag])
     else
-      @hosts = Box.boxall
+      @boxes = Box.boxall
     end
   end
+
+  def list_boxes
+    @boxes = Box.select(:name).all.map(&:name)
+
+    respond_to do |format|
+      format.json { render json: @boxes}
+      format.yaml { render :text => @boxes.to_yaml }
+    end
+  end
+
 
 end

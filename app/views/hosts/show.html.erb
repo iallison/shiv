@@ -25,11 +25,19 @@
   <%= @host.ip %>
 </p>
 
+<b>Extended Attributes:</b>
+<% @host.host_attributes.any? %>
+<ul>
+  <% @host.host_attributes.each do |a| %>
+    <li><%= "#{a.name}: #{a.value}" %></li>
+  <% end %>
+</ul>
+
 <b>Tags:</b>
 <% @host.tags.any? %>
 <ul>
   <% @host.tags.sort.each do |tag| %>
-    <li><%= link_to tag.name, tagged_url(:tag => tag.name) %></li>
+    <li><%= tag.name %></li>
   <% end %>
 </ul>
 
