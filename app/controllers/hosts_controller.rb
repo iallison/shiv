@@ -69,7 +69,15 @@ class HostsController < ApplicationController
     @host = Host.find(params[:id])
 
     params[:host].each_with_index do |p, blah|
-      @host.send("#{p[0]}=", p[1])
+      ## special case for the tag_list...
+      case p[0]
+        when "tag"
+          @host.tag_list = @host.tag_list + ["#{p[1]}"] unless @host.tag_list.include? p[1]
+        when "rtag"
+          @host.tag_list = @host.tag_list - ["#{p[1]}"]
+      else
+        @host.send("#{p[0]}=", p[1])
+      end
     end
 
     respond_to do |format|

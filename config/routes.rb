@@ -10,6 +10,7 @@ Shiv::Application.routes.draw do
   match 'cli/list_boxes' => 'boxes#list_boxes'
   match 'cli/searchAll' => 'search#searchAll'
   match 'cli/searchHost' => 'search#searchHost'
+  match 'cli/searchBox' => 'search#searchBox'
 
 
   # The priority is based upon order of creation:
