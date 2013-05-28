@@ -13,8 +13,23 @@
     <div class="container">
       <div class="navbar">
         <div class="navbar-inner">
-          <%= link_to 'SDSC Shiv', root_path, :class => "brand" %>
-          <%= render :partial => "shared/search_form" %>
+          <div class="navbar-text pull-left">
+            <%= link_to 'SDSC Shiv', root_path, :class => "brand" %>
+          </div>
+
+          <div class="navbar-text pull-right">
+            <% if user_signed_in? %>
+              Logged in as <strong><%= current_user.email %></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+              <%= link_to 'Edit Profile', edit_user_registration_path, :class => 'navbar-link' %> |
+              <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+            <% else %>
+              <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
+              <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+            <% end %>
+          </div>
+
+
+          <% #render :partial => "shared/search_form" %>
         </div>
       </div>
 
