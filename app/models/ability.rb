@@ -29,8 +29,13 @@ class Ability
     # See the wiki for details:
     # https://github.com/ryanb/cancan/wiki/Defining-Abilities
     user ||= User.new
-    if user_signed_in?
+    if user.has_role? :root
       can :manage, :all
+    elsif user.has_role? :admin
+      can :manage, [Host, Box]
+      can :read, User
+    elsif user.has_role? :guest
+      cannot :read, :all
     end
   end
 end
