@@ -6,6 +6,7 @@ gem 'acts-as-taggable-on'
 gem 'acts_as_commentable', '3.0.1'
 gem 'acts_as_eav_model', :git => 'git://github.com/kaboom-org/acts_as_eav_model.git'
 gem 'devise'
+gem 'cancan'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
