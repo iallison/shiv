@@ -17,17 +17,20 @@ class HostsController < ApplicationController
   def show
     @host = Host.find(params[:id])
 
-    result = Hash.new
-    result[:Host] = [@host.name]
-    result.update(:Hostings => [ @host.box.name ] ) unless @host.box_id.nil?
-    result.update(:Traits => [ @host ])
-    result.update(:ExtendedTraits => [ @host.host_attributes.map { |a| {"#{a.name}" =>  "#{a.value}"} } ].flatten) unless @host.host_attributes.nil?
-    result.update(:Tags => @host.tags.map {|t| "#{t.name}" } ).flatten unless @host.tags.empty?
+    json = Hash.new
+    json[:Host] = [@host.name]
+    json.update(:Hostings => [ @host.box.name ] ) unless @host.box_id.nil?
+    json.update(:Traits => [ @host ])
+    json.update(:ExtendedTraits => [ @host.host_attributes.map { |a| {"#{a.name}" =>  "#{a.value}"} } ].flatten) unless @host.host_attributes.nil?
+    json.update(:Tags => @host.tags.map {|t| "#{t.name}" } ).flatten unless @host.tags.empty?
+    if params[:notes]
+      json.update(:Notes => @host.comments.map { |c| "#{c.comment} (#{c.created_at})"}).flatten unless @host.comments.empty?
+    end
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: result }
-      format.yaml { render :text => result.to_yaml }
+      format.json { render json: json }
+      format.yaml { render :text => json.to_yaml }
     end
   end
 
@@ -75,6 +78,10 @@ class HostsController < ApplicationController
           @host.tag_list = @host.tag_list + ["#{p[1]}"] unless @host.tag_list.include? p[1]
         when "rtag"
           @host.tag_list = @host.tag_list - ["#{p[1]}"]
+        when "note"
+          note = Comment.new
+          note.comment = p[1]
+          @host.comments = @host.comments + [ note ]
       else
         @host.send("#{p[0]}=", p[1])
       end

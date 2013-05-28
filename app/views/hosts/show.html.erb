@@ -45,7 +45,7 @@
 <% @host.comments.any? %>
 <ul>
   <% @host.comments.sort.each do |comment| %>
-    <li><%= comment.comment %></li>
+    <li><%= "#{comment.comment} (#{comment.created_at})" %></li>
   <% end %>
 </ul>
 
