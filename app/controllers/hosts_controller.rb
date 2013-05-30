@@ -23,7 +23,7 @@ class HostsController < ApplicationController
     json.update(:Traits => [ @host ])
     json.update(:ExtendedTraits => [ @host.host_attributes.map { |a| {"#{a.name}" =>  "#{a.value}"} } ].flatten) unless @host.host_attributes.nil?
     json.update(:Tags => @host.tags.map {|t| "#{t.name}" } ).flatten unless @host.tags.empty?
-    if params[:notes]
+    if params[:notes] == "true"
       json.update(:Notes => @host.comments.map { |c| "#{c.comment} (#{c.created_at})"}).flatten unless @host.comments.empty?
     end
 
