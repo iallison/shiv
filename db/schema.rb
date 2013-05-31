@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130528205419) do
+ActiveRecord::Schema.define(:version => 20130531194341) do
 
   create_table "box_attributes", :force => true do |t|
     t.integer  "box_id",     :null => false
@@ -34,6 +34,24 @@ ActiveRecord::Schema.define(:version => 20130528205419) do
     t.datetime "updated_at",    :null => false
   end
 
+  create_table "cloud_accounts", :force => true do |t|
+    t.string   "name"
+    t.string   "charge_index"
+    t.string   "customer_type"
+    t.string   "organization"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "cloud_users", :force => true do |t|
+    t.string   "name"
+    t.boolean  "admin",           :default => false
+    t.integer  "contact_id"
+    t.datetime "sla_accept_date"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+  end
+
   create_table "comments", :force => true do |t|
     t.string   "title",            :limit => 50, :default => ""
     t.text     "comment"
@@ -47,6 +65,15 @@ ActiveRecord::Schema.define(:version => 20130528205419) do
   add_index "comments", ["commentable_id"], :name => "index_comments_on_commentable_id"
   add_index "comments", ["commentable_type"], :name => "index_comments_on_commentable_type"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+
+  create_table "contacts", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "phone"
+    t.string   "email"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "host_attributes", :force => true do |t|
     t.integer  "host_id",    :null => false

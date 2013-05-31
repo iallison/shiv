@@ -1,4 +1,13 @@
 Shiv::Application.routes.draw do
+  resources :cloud_users
+
+
+  resources :cloud_accounts
+
+
+  resources :contacts
+
+
   devise_for :users
 
   root :to => 'hosts#index'
