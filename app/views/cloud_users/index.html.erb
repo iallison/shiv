@@ -1,0 +1,29 @@
+<h1>Listing cloud_users</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Admin</th>
+    <th>Contact</th>
+    <th>Sla accept date</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @cloud_users.each do |cloud_user| %>
+  <tr>
+    <td><%= cloud_user.name %></td>
+    <td><%= cloud_user.admin %></td>
+    <td><%= cloud_user.contact_id %></td>
+    <td><%= cloud_user.sla_accept_date %></td>
+    <td><%= link_to 'Show', cloud_user %></td>
+    <td><%= link_to 'Edit', edit_cloud_user_path(cloud_user) %></td>
+    <td><%= link_to 'Destroy', cloud_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Cloud user', new_cloud_user_path %>

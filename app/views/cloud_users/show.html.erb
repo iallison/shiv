@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @cloud_user.name %>
+</p>
+
+<p>
+  <b>Admin:</b>
+  <%= @cloud_user.admin %>
+</p>
+
+<p>
+  <b>Contact:</b>
+  <%= @cloud_user.contact_id %>
+</p>
+
+<p>
+  <b>Sla accept date:</b>
+  <%= @cloud_user.sla_accept_date %>
+</p>
+
+
+<%= link_to 'Edit', edit_cloud_user_path(@cloud_user) %> |
+<%= link_to 'Back', cloud_users_path %>

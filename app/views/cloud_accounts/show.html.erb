@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @cloud_account.name %>
+</p>
+
+<p>
+  <b>Charge index:</b>
+  <%= @cloud_account.charge_index %>
+</p>
+
+<p>
+  <b>Customer type:</b>
+  <%= @cloud_account.customer_type %>
+</p>
+
+<p>
+  <b>Organization:</b>
+  <%= @cloud_account.organization %>
+</p>
+
+
+<%= link_to 'Edit', edit_cloud_account_path(@cloud_account) %> |
+<%= link_to 'Back', cloud_accounts_path %>

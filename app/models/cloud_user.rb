@@ -1,0 +1,6 @@
+class CloudUser < ActiveRecord::Base
+  attr_accessible :admin, :name, :sla_accept_date, :contact_id
+  has_one :contact
+  acts_as_taggable on :tags
+  acts_as_commentable
+end
