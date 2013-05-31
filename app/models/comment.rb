@@ -13,5 +13,10 @@ class Comment < ActiveRecord::Base
   # NOTE: Comments belong to a user
   belongs_to :user
 
-  attr_accessible :title, :comment
+  # NOTE: :created_at and :user_id should not normally be included
+  # however, they're both needed to override the default values
+  # for the rake db:seed task that migrates old data
+  # After the initial migration, these two values should be
+  # removed.
+  attr_accessible :title, :comment, :created_at, :user_id
 end
