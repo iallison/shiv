@@ -110,13 +110,13 @@ class HostsController < ApplicationController
     end
   end
 
-  def tagged
-    if params[:tag].present?
-      @hosts = Host.tagged_with(params[:tag])
-    else
-      @hosts = Host.hostall
-    end
-  end
+  #def tagged
+  #  if params[:tag].present?
+  #    @hosts = Host.tagged_with(params[:tag])
+  #  else
+  #    @hosts = Host.hostall
+  #  end
+  #end
 
   # GET cli/list_hosts.json
   # GET cli/list_hosts.yaml
