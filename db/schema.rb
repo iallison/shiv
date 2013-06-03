@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130603162356) do
+ActiveRecord::Schema.define(:version => 20130603162935) do
 
   create_table "box_attributes", :force => true do |t|
     t.integer  "box_id",     :null => false
