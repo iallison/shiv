@@ -118,6 +118,8 @@ class HostsController < ApplicationController
     end
   end
 
+  # GET cli/list_hosts.json
+  # GET cli/list_hosts.yaml
   def list_hosts
     @hosts = Host.select(:name).all.map(&:name)
 
