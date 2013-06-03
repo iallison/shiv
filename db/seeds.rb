@@ -256,7 +256,7 @@ def lock_users(users)
 end
 
 def importCloudAccounts
-  skip = 0
+  skip = 4305
   hosts = YAML.load(%x(#{$old_shiv} listhost))
   count = 0
   hosts.each do |h|
@@ -299,6 +299,8 @@ def importCloudAccounts
             account.billing_fund = value
           when 'billing_object_code'
             account.billing_object_code = value
+          when 'billing_sub'
+            account.billing_sub = value
           when /^cloud:storage:account:*/, 'type', 'id', 'billing_exempt'
             #noop
           else
@@ -551,8 +553,8 @@ end
 
 lock_users(['brianb@sdsc.edu', 'dougw@sdsc.edu'])
 
-#importBoxes
-#importHosts
-#importContacts
-#importCloudAccounts
+importBoxes
+importHosts
+importContacts
+importCloudAccounts
 importCloudUsers
