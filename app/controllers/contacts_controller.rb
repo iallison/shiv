@@ -7,6 +7,7 @@ class ContactsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @contacts }
+      format.yaml { render yaml: @contacts }
     end
   end
 
@@ -80,4 +81,14 @@ class ContactsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def list_contacts
+    @contacts = Contact.select(:email).all.map(&:email)
+
+    respond_to do |format|
+      format.json { render json: @contacts}
+      format.yaml { render :text => @contacts.to_yaml }
+    end
+  end
+
 end

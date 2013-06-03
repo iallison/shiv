@@ -22,6 +22,7 @@ Shiv::Application.routes.draw do
 
   match 'cli/list_hosts' => 'hosts#list_hosts'
   match 'cli/list_boxes' => 'boxes#list_boxes'
+  match 'cli/list_contacts' => 'contacts#list_contacts'
   match 'cli/searchAll' => 'search#searchAll'
   match 'cli/searchHost' => 'search#searchHost'
   match 'cli/searchBox' => 'search#searchBox'
