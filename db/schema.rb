@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130531194341) do
+ActiveRecord::Schema.define(:version => 20130601023536) do
 
   create_table "box_attributes", :force => true do |t|
     t.integer  "box_id",     :null => false
@@ -45,11 +45,12 @@ ActiveRecord::Schema.define(:version => 20130531194341) do
 
   create_table "cloud_users", :force => true do |t|
     t.string   "name"
-    t.boolean  "admin",           :default => false
+    t.boolean  "admin",             :default => false
     t.integer  "contact_id"
     t.datetime "sla_accept_date"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.integer  "cloud_accounts_id"
   end
 
   create_table "comments", :force => true do |t|
