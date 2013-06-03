@@ -82,6 +82,8 @@ class ContactsController < ApplicationController
     end
   end
 
+  # GET /contacts.json
+  # GET /contacts.yaml
   def list_contacts
     @contacts = Contact.select(:email).all.map(&:email)
 
