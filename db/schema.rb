@@ -34,15 +34,6 @@ ActiveRecord::Schema.define(:version => 20130603162935) do
     t.datetime "updated_at",    :null => false
   end
 
-  create_table "cloud_accounts", :force => true do |t|
-    t.string   "name"
-    t.string   "charge_index"
-    t.string   "customer_type"
-    t.string   "organization"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
-
   create_table "cloud_account_attributes", :force => true do |t|
     t.integer  "cloud_account_id", :null => false
     t.text     "name",             :null => false
@@ -53,14 +44,13 @@ ActiveRecord::Schema.define(:version => 20130603162935) do
 
   add_index "cloud_account_attributes", ["cloud_account_id"], :name => "index_cloud_account_attributes_on_cloud_account_id"
 
-  create_table "cloud_users", :force => true do |t|
+  create_table "cloud_accounts", :force => true do |t|
     t.string   "name"
-    t.boolean  "admin",             :default => false
-    t.integer  "contact_id"
-    t.datetime "sla_accept_date"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
-    t.integer  "cloud_account_id"
+    t.string   "charge_index"
+    t.string   "customer_type"
+    t.string   "organization"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "cloud_user_attributes", :force => true do |t|
@@ -72,6 +62,16 @@ ActiveRecord::Schema.define(:version => 20130603162935) do
   end
 
   add_index "cloud_user_attributes", ["cloud_user_id"], :name => "index_cloud_user_attributes_on_cloud_user_id"
+
+  create_table "cloud_users", :force => true do |t|
+    t.string   "name"
+    t.boolean  "admin",            :default => false
+    t.integer  "contact_id"
+    t.datetime "sla_accept_date"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.integer  "cloud_account_id"
+  end
 
   create_table "comments", :force => true do |t|
     t.string   "title",            :limit => 50, :default => ""
@@ -96,7 +96,15 @@ ActiveRecord::Schema.define(:version => 20130603162935) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "host_attributes", :force => true do |t|
+  create_table "contact_attributes", :force => true do |t|
+    t.integer  "contact_id",    :null => false
+    t.text     "name",       :null => false
+    t.text     "value",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+ create_table "host_attributes", :force => true do |t|
     t.integer  "host_id",    :null => false
     t.text     "name",       :null => false
     t.text     "value",      :null => false

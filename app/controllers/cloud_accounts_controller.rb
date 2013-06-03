@@ -2,7 +2,7 @@ class CloudAccountsController < ApplicationController
   # GET /cloud_accounts
   # GET /cloud_accounts.json
   def index
-    @cloud_accounts = CloudAccount.all
+    @cloud_accounts = CloudAccount.order('name')
 
     respond_to do |format|
       format.html # index.html.erb

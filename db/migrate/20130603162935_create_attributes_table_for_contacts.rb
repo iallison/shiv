@@ -1,4 +1,4 @@
-class CreateAttributesForContacts < ActiveRecord::Migration
+class CreateAttributesTableForContacts < ActiveRecord::Migration
   def up
     def self.up
       create_table :contact_attributes do |t|

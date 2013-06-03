@@ -22,7 +22,8 @@ User.create([email: 'dferbert@sdsc.edu', password: 'lajjsu@842szS', password_con
 User.create([email: 'colby@sdsc.edu', password: '8zluwSQpklsdur', password_confirmation: '8zluwSQpklsdur'])
 User.create([email: 'tmcnew@sdsc.edu', password: '91jsuvmSw002ls', password_confirmation: '91jsuvmSw002ls'])
 User.create([email: 'jfilliez@sdsc.edu', password: '12aRInmsWplr3', password_confirmation: '12aRInmsWplr3'])
-User.create([email: 'twalkerb@sdsc.edu', password: 'U9IXJGHes012v', password_confirmation: '1U9IXJGHes012v'])
+User.create([email: 'twalkerb@sdsc.edu', password: '1U9IXJGHes012v', password_confirmation: '1U9IXJGHes012v'])
+User.create([email: 'ssps@sdsc.edu', password: '81UWMVawA$32', password_confirmation: '81UWMVawA$32'])
 
 # import Boxes next..
 def importBoxes
@@ -239,6 +240,8 @@ def replace_user(user)
     'jfilliez@sdsc.edu'
   when 'twalkerb'
     'twalkerb@sdsc.edu'
+  when 'cloud-explorer', 'cloud-contacts'
+    'ssps@sdsc.edu'
   else
     puts "Don't know how to handle user: #{user}"
     exit
@@ -252,7 +255,7 @@ def lock_users(users)
   end
 end
 
-def importContacts
+def importCloudAccounts
   skip = 0
   hosts = YAML.load(%x(#{$old_shiv} listhost))
   count = 0
@@ -276,7 +279,27 @@ def importContacts
             account.created_at = value
           when 'account_name'
             account.name = value
-          when /^cloud:storage:account:*/
+          when 'lapse_level'
+            account.lapse_level = value
+          when 'lapse_date'
+            account.lapse_date = value
+          when 'customer_type'
+            account.customer_type = value
+          when 'charge_index'
+            account.charge_index = value
+          when 'purge_date'
+            account.purge_date = value
+          when 'retired_date'
+            account.retired_date = value
+          when 'organization'
+            account.organization = value
+          when 'billing_account'
+            account.billing_account = value
+          when 'billing_fund'
+            account.billing_fund = value
+          when 'billing_object_code'
+            account.billing_object_code = value
+          when /^cloud:storage:account:*/, 'type', 'id', 'billing_exempt'
             #noop
           else
             puts "Not sure what to do with #{accountName} -> #{name} = #{value}"
@@ -331,8 +354,205 @@ def importContacts
 
 end
 
+def importContacts
+  skip = 0
+  contacts = YAML.load(%x(#{$old_shiv} listhost))
+  count = 0
+  contacts.each do |c|
+    count += 1
+    break if count > $limit && $limit > 0
+    next if c.nil? || count < skip
+    next unless /^[a-zA-Z0-9_\-]+@[a-zA-Z0-9_\-]+.[a-zA-Z]{3}/ =~ c
+
+    yml = YAML.load(%x(#{$old_shiv} show "^#{c}$"))
+    contact = Contact.new
+    contact.typer = 'contact'
+    yml.inspect
+    yml.each_key do |contactName|
+
+      if !contactName.empty? && yml[contactName].has_key?("traits")
+        yml[contactName]['traits'].each do |name, value|
+          #puts "#{name} = #{value}"
+          case name
+          when 'first_name'
+            contact.first_name = value
+          when 'last_name'
+            contact.last_name = value
+          when 'phone'
+            contact.phone = value
+          when 'email'
+            contact.email = value
+          when 'external_email'
+            contact.external_email = value
+          when 'notification_email'
+            contact.notification_email = value
+          when 'type', 'id'
+            #noop
+          else
+            puts "Not sure what to do with #{contactName} -> #{name} = #{value}"
+            exit
+          end
+        end
+      end
+
+      if !contactName.empty? && yml[contactName].has_key?('tags')
+        tags = []
+        yml[contactName]['tags'].each do |tag|
+          tags << tag
+        end
+        contact.tag_list = tags.join(',')
+      end
+
+
+    end
+
+    if !contact.email.nil? && contact.typer == 'contact'
+      puts "[#{count}] Saving : #{contact.inspect}"
+      contact.save
+      contact.typer = nil
+      contact.save
+    else
+      puts "[#{count}] Skipping #{contact.inspect}"
+      puts c.inspect
+    end
+
+    notes = %x(#{$old_shiv} note "#{c}")
+    @note_arr = []
+
+    notes.each_line do |line|
+      if /^([0-9]){4}\-([0-9]){2}\-([0-9]){2}/ =~ line
+        @note_arr << OpenStruct.new
+        @note_arr.last.created_at = line[/^(\d){4}.*UTC/]
+        @note_arr.last.user = replace_user(line.split('UTC')[1].strip)
+        @note_arr.last.comment = ''
+      else
+        @note_arr.last.comment = line.strip unless line.strip == 'Nothing noted.'
+      end
+
+    end
+
+    @note_arr.each do |note|
+      user = User.find_by_email(note.user)
+      user_id = user.id unless user.nil?
+      contact.save
+      contact.comments.create(:comment => note.comment, :created_at => note.created_at, :user_id => user_id)
+      contact.save
+    end
+  end
+
+end
+
+def importCloudUsers
+  skip = 0
+  users = YAML.load(%x(#{$old_shiv} listhost))
+  count = 0
+  users.each do |u|
+    count += 1
+    break if count > $limit && $limit > 0
+    next if u.nil? || count < skip
+    next unless /^cloud:storage:user/ =~ u
+
+    yml = YAML.load(%x(#{$old_shiv} show "^#{u}$"))
+    user = CloudUser.new
+
+    # by default, pull the username from #{u}
+    user.name = u.gsub('cloud:storage:user:','').split(':')[1]
+
+    user.typer = 'cloud_user'
+    yml.inspect
+    yml.each_key do |username|
+
+      if !username.empty? && yml[username].has_key?("traits")
+        yml[username]['traits'].each do |name, value|
+          #puts "#{name} = #{value}"
+          case name
+          when 'username'
+            user.name = value
+          when 'account_admin'
+            user.admin = true
+          when 'start_date'
+            user.created_at = value
+          when 'sla_accepted'
+            user.sla_accept_date = value
+          when 'request_ticket'
+            user.request_ticket = value
+          when 'type', 'id'
+            #noop
+          else
+            puts "Not sure what to do with #{username} -> #{name} = #{value}"
+            exit
+          end
+        end
+      end
+
+      if !username.empty? && yml[username].has_key?('tags')
+        tags = []
+        yml[username]['tags'].each do |tag|
+          tags << tag
+        end
+        user.tag_list = tags.join(',')
+      end
+
+
+      if !username.empty? && yml[username].has_key?('links')
+        yml[username]['links'].each do |link|
+          if link[0] == 'contact'
+            link[1].each do |email|
+              puts "Searching for contact by email: #{email}"
+              contact = Contact.find_by_email(email)
+              puts contact.inspect
+              user.contact_id = contact.id unless contact.nil?
+            end
+          end
+        end
+      end
+
+    end
+
+    if !user.name.nil? && user.typer == 'cloud_user'
+      acc = CloudAccount.find_by_name(u.gsub('cloud:storage:user:','').split(':')[0])
+      user.cloud_account_id = acc.id unless acc.nil?
+
+      puts "[#{count}] Saving : #{user.inspect}"
+      user.save
+      user.typer = nil
+      user.save
+    else
+      puts "[#{count}] Skipping #{user.inspect}"
+      puts u.inspect
+    end
+
+    notes = %x(#{$old_shiv} note "#{u}")
+    @note_arr = []
+
+    notes.each_line do |line|
+      if /^([0-9]){4}\-([0-9]){2}\-([0-9]){2}/ =~ line
+        @note_arr << OpenStruct.new
+        @note_arr.last.created_at = line[/^(\d){4}.*UTC/]
+        @note_arr.last.user = replace_user(line.split('UTC')[1].strip)
+        @note_arr.last.comment = ''
+      else
+        @note_arr.last.comment = line.strip unless line.strip == 'Nothing noted.'
+      end
+
+    end
+
+    @note_arr.each do |note|
+      us = User.find_by_email(note.user)
+      user_id = us.id unless us.nil?
+      user.save
+      user.comments.create(:comment => note.comment, :created_at => note.created_at, :user_id => user_id)
+      user.save
+    end
+  end
+
+end
+
 
 lock_users(['brianb@sdsc.edu', 'dougw@sdsc.edu'])
+
 #importBoxes
 #importHosts
-importContacts
+#importContacts
+#importCloudAccounts
+importCloudUsers
