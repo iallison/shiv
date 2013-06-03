@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130601023536) do
+ActiveRecord::Schema.define(:version => 20130603162356) do
 
   create_table "box_attributes", :force => true do |t|
     t.integer  "box_id",     :null => false
@@ -43,6 +43,16 @@ ActiveRecord::Schema.define(:version => 20130601023536) do
     t.datetime "updated_at",    :null => false
   end
 
+  create_table "cloud_accounts_attributes", :force => true do |t|
+    t.integer  "cloud_account_id", :null => false
+    t.text     "name",             :null => false
+    t.text     "value",            :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "cloud_accounts_attributes", ["cloud_account_id"], :name => "index_cloud_accounts_attributes_on_cloud_account_id"
+
   create_table "cloud_users", :force => true do |t|
     t.string   "name"
     t.boolean  "admin",             :default => false
@@ -52,6 +62,16 @@ ActiveRecord::Schema.define(:version => 20130601023536) do
     t.datetime "updated_at",                           :null => false
     t.integer  "cloud_accounts_id"
   end
+
+  create_table "cloud_users_attributes", :force => true do |t|
+    t.integer  "cloud_user_id", :null => false
+    t.text     "name",          :null => false
+    t.text     "value",         :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "cloud_users_attributes", ["cloud_user_id"], :name => "index_cloud_users_attributes_on_cloud_user_id"
 
   create_table "comments", :force => true do |t|
     t.string   "title",            :limit => 50, :default => ""

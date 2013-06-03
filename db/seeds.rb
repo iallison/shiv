@@ -252,7 +252,87 @@ def lock_users(users)
   end
 end
 
+def importContacts
+  skip = 0
+  hosts = YAML.load(%x(#{$old_shiv} listhost))
+  count = 0
+  hosts.each do |h|
+    count += 1
+    break if count > $limit && $limit > 0
+    next if h.nil? || count < skip
+    next unless /^cloud:storage:account/ =~ h
+
+    yml = YAML.load(%x(#{$old_shiv} show "^#{h}$"))
+    account = CloudAccount.new
+    account.typer = 'cloud_account'
+    yml.inspect
+    yml.each_key do |accountName|
+
+      if !accountName.empty? && yml[accountName].has_key?("traits")
+        yml[accountName]['traits'].each do |name, value|
+          #puts "#{name} = #{value}"
+          case name
+          when 'start_date'
+            account.created_at = value
+          when 'account_name'
+            account.name = value
+          when /^cloud:storage:account:*/
+            #noop
+          else
+            puts "Not sure what to do with #{accountName} -> #{name} = #{value}"
+            exit
+          end
+        end
+      end
+
+      if !accountName.empty? && yml[accountName].has_key?('tags')
+        tags = []
+        yml[accountName]['tags'].each do |tag|
+          tags << tag
+        end
+        account.tag_list = tags.join(',')
+      end
+
+
+    end
+
+    if !account.name.nil? && account.typer == 'cloud_account'
+      puts "[#{count}] Saving : #{account.inspect}"
+      account.save
+      account.typer = nil
+      account.save
+    else
+      puts "[#{count}] Skipping #{account.name}"
+    end
+
+    notes = %x(#{$old_shiv} note "#{h}")
+    @note_arr = []
+
+    notes.each_line do |line|
+      if /^([0-9]){4}\-([0-9]){2}\-([0-9]){2}/ =~ line
+        @note_arr << OpenStruct.new
+        @note_arr.last.created_at = line[/^(\d){4}.*UTC/]
+        @note_arr.last.user = replace_user(line.split('UTC')[1].strip)
+        @note_arr.last.comment = ''
+      else
+        @note_arr.last.comment = line.strip unless line.strip == 'Nothing noted.'
+      end
+
+    end
+
+    @note_arr.each do |note|
+      user = User.find_by_email(note.user)
+      user_id = user.id unless user.nil?
+      account.save
+      account.comments.create(:comment => note.comment, :created_at => note.created_at, :user_id => user_id)
+      account.save
+    end
+  end
+
+end
+
 
 lock_users(['brianb@sdsc.edu', 'dougw@sdsc.edu'])
-importBoxes
-importHosts
+#importBoxes
+#importHosts
+importContacts

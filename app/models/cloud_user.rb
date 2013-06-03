@@ -3,4 +3,5 @@ class CloudUser < ActiveRecord::Base
   has_one :contact
   acts_as_taggable
   acts_as_commentable
+  has_eav_behavior
 end

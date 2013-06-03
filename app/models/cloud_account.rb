@@ -3,4 +3,5 @@ class CloudAccount < ActiveRecord::Base
   has_many :cloud_users
   acts_as_taggable
   acts_as_commentable
+  has_eav_behavior
 end
