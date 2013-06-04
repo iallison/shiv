@@ -383,11 +383,11 @@ def importContacts
           when 'phone'
             contact.phone = value
           when 'email'
-            contact.email = value
+            contact.email = value.downcase
           when 'external_email'
-            contact.external_email = value
+            contact.external_email = value.downcase
           when 'notification_email'
-            contact.notification_email = value
+            contact.notification_email = value.downcase
           when 'type', 'id'
             #noop
           else
