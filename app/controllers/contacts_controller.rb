@@ -20,7 +20,7 @@ class ContactsController < ApplicationController
     json = Hash.new
     json[:Contact] = [@contact.email]
     json.update(:Traits => [ @contact ])
-    json.update(:ExtendedTraits => [ @contact.contact_attributes.map { |c| {"#{c.name}" =>  "#{c.value}"} } ].flatten) unless @contact.contact_attributes.nil?
+    json.update(:ExtendedTraits => [ @contact.contact_attributes.map { |c| {"#{c.name}" =>  "#{c.value}"} } ].flatten) unless @contact.contact_attributes.empty?
     json.update(:Tags => @contact.tags.map {|t| "#{t.name}" } ).flatten unless @contact.tags.empty?
     if params[:notes] == "true"
       json.update(:Notes => @contact.comments.map { |c| "#{c.comment} (#{c.created_at})"}).flatten unless @contact.comments.empty?
