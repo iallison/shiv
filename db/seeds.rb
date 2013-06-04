@@ -256,7 +256,7 @@ def lock_users(users)
 end
 
 def importCloudAccounts
-  skip = 4305
+  skip = 0
   hosts = YAML.load(%x(#{$old_shiv} listhost))
   count = 0
   hosts.each do |h|
