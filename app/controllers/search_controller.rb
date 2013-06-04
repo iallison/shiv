@@ -46,4 +46,20 @@ class SearchController < ApplicationController
 
   end
 
+
+  def searchContact
+    @contacts = Contact.find(:all, :conditions => ['lower(email) LIKE ?', "%#{params[:search_text].downcase}%"])
+    Contact.tagged_with([params[:search_text]], :wild => true, :any => true).each do |c|
+      @contacts << c unless @contacts.include? c
+    end
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @contacts }
+      format.yaml { render :text => @contacts.to_yaml }
+    end
+
+  end
+
+
 end
