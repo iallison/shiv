@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130603162935) do
+ActiveRecord::Schema.define(:version => 20130605202843) do
 
   create_table "box_attributes", :force => true do |t|
     t.integer  "box_id",     :null => false
@@ -87,6 +87,14 @@ ActiveRecord::Schema.define(:version => 20130603162935) do
   add_index "comments", ["commentable_type"], :name => "index_comments_on_commentable_type"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
+  create_table "contact_attributes", :force => true do |t|
+    t.integer  "contact_id", :null => false
+    t.text     "name",       :null => false
+    t.text     "value",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "contacts", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -96,15 +104,9 @@ ActiveRecord::Schema.define(:version => 20130603162935) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "contact_attributes", :force => true do |t|
-    t.integer  "contact_id",    :null => false
-    t.text     "name",       :null => false
-    t.text     "value",      :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
+  add_index "contacts", ["email"], :name => "index_contacts_on_email", :unique => true
 
- create_table "host_attributes", :force => true do |t|
+  create_table "host_attributes", :force => true do |t|
     t.integer  "host_id",    :null => false
     t.text     "name",       :null => false
     t.text     "value",      :null => false
