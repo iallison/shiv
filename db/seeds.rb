@@ -7,9 +7,9 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 $old_shiv = "/Users/jd/work/oldshiv/bin/shiv"
-$limit = 0;
+$limit = 1;
 
-## Create a new user account in the database first with a temporary password
+# Create a new user account in the database first with a temporary password
 User.create([email: 'jd@sdsc.edu', password: 'changeme', password_confirmation: 'changeme'])
 User.create([email: 'smeier@sdsc.edu', password: 'changeme', password_confirmation: 'changeme'])
 User.create([email: 'kcoakley@sdsc.edu', password: 'changeme', password_confirmation: 'changeme'])
@@ -37,12 +37,13 @@ def importBoxes
 
     yml = YAML.load(%x(#{$old_shiv} showbox #{b}))
     box = Box.new
+    box.name = b
     yml.each_key do |boxName|
 
       if yml[boxName].has_key?("traits")
         yml[boxName]['traits'].each do |name, value|
           #puts "#{name} = #{value}"
-          box.name = boxName
+          box.name = boxName unless boxName.empty?
           case name
           when 'type'
             #noop
@@ -551,7 +552,7 @@ def importCloudUsers
 end
 
 
-lock_users(['brianb@sdsc.edu', 'dougw@sdsc.edu'])
+#lock_users(['brianb@sdsc.edu', 'dougw@sdsc.edu'])
 
 importBoxes
 importHosts
