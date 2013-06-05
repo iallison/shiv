@@ -12,12 +12,24 @@ class BoxesController < ApplicationController
 
   # GET /boxes/1
   # GET /boxes/1.json
+  # GET /boxes/1.yaml
   def show
-    @box = Box.find(params[:id])
+    @box = Box.includes(:hosts).find(params[:id])
+
+    json = Hash.new
+    json[:Box] = [@box.name]
+    json.update(:Hostings => @box.hosts.map { |h| "#{h.name}"}  ) unless @box.hosts.empty?
+    json.update(:Traits => [ @box ])
+    json.update(:ExtendedTraits => [ @box.box_attributes.map { |a| {"#{a.name}" =>  "#{a.value}"} } ].flatten) unless @box.box_attributes.empty?
+    json.update(:Tags => @box.tags.map {|t| "#{t.name}" } ).flatten unless @box.tags.empty?
+    if params[:notes] == "true"
+      json.update(:Notes => @box.comments.map { |c| "#{c.comment} (#{c.created_at})"}).flatten unless @box.comments.empty?
+    end
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @box }
+      format.json { render json: json }
+      format.yaml { render :text => json.to_yaml }
     end
   end
 
@@ -58,8 +70,24 @@ class BoxesController < ApplicationController
   def update
     @box = Box.find(params[:id])
 
+    params[:box].each_with_index do |p, blah|
+      ## special case for the tag_list...
+      case p[0]
+        when "tag"
+          @box.tag_list = @box.tag_list + ["#{p[1]}"] unless @box.tag_list.include? p[1]
+        when "rtag"
+          @box.tag_list = @box.tag_list - ["#{p[1]}"]
+        when "note"
+          note = Comment.new
+          note.comment = p[1]
+          @box.comments = @box.comments + [ note ]
+      else
+        @box.send("#{p[0]}=", p[1])
+      end
+    end
+
     respond_to do |format|
-      if @box.update_attributes(params[:box])
+      if @box.save
         format.html { redirect_to @box, notice: 'Box was successfully updated.' }
         format.json { head :no_content }
       else
@@ -68,6 +96,7 @@ class BoxesController < ApplicationController
       end
     end
   end
+
 
   # DELETE /boxes/1
   # DELETE /boxes/1.json
