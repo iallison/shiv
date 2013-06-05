@@ -56,6 +56,8 @@ class BoxesController < ApplicationController
 
     respond_to do |format|
       if @box.save
+        @box.name = "%s%06d" % ["CM", @box.id]
+        @box.save
         format.html { redirect_to @box, notice: 'Box was successfully created.' }
         format.json { render json: @box, status: :created, location: @box }
       else
