@@ -8,16 +8,14 @@
     <th>Organization</th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
 
 <% @cloud_accounts.each do |cloud_account| %>
   <tr>
-    <td><%= cloud_account.name %></td>
+    <td><%= link_to cloud_account.name, cloud_account %></td>
     <td><%= cloud_account.charge_index %></td>
     <td><%= cloud_account.customer_type %></td>
     <td><%= cloud_account.organization %></td>
-    <td><%= link_to 'Show', cloud_account %></td>
     <td><%= link_to 'Edit', edit_cloud_account_path(cloud_account) %></td>
     <td><%= link_to 'Destroy', cloud_account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>

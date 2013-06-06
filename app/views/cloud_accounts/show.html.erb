@@ -1,24 +1,73 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @cloud_account.name %>
-</p>
+<h4>Cloud Account Details</h4>
+<div class="row">
+  <div class='span3 well'>
+    <table class="table-condensed">
+      <tr>
+        <td>Name:</td>
+        <td><%= @cloud_account.name %></td>
+      </tr>
+      <tr>
+        <td>Customer Type:</td>
+        <td><%= @cloud_account.customer_type %></td>
+      </tr>
+      <tr>
+        <td>Organization:</td>
+        <td><%= @cloud_account.organization %></td>
+      </tr>
+      <tr>
+        <td>Charge Index:</td>
+        <td><%= @cloud_account.charge_index %></td>
+      </tr>
+      <tr>
+        <td>Create Date:</td>
+        <td><%= @cloud_account.created_at.to_formatted_s(:short) %></td>
+      </tr>
+      <tr>
+        <td>Last Update:</td>
+        <td><%= @cloud_account.updated_at.to_formatted_s(:short) %></td>
+      </tr>
 
-<p>
-  <b>Charge index:</b>
-  <%= @cloud_account.charge_index %>
-</p>
+    </table>
+  </div>
 
-<p>
-  <b>Customer type:</b>
-  <%= @cloud_account.customer_type %>
-</p>
+  <div class='span4'>
+    <ul class="thumbnails">
+      <li class="span4">
+      <a href="#" class="thumbnail">
+        <img src="https://graphite.sdsc.edu:8443/render/?target=keepLastValue%28services.cloud.storage.accounts.<%=@cloud_account.name%>%29&width=310&height=238&from=-90days&areaMode=all&colorList=0088CC&bgcolor=F5F5F5&fgcolor=black&hideLegend=true&&fontSize=12&format=png" alt="">
+      </a>
+      </li>
+    </ul>
+  </div>
+</div>
 
-<p>
-  <b>Organization:</b>
-  <%= @cloud_account.organization %>
-</p>
+<div class="row">
+  <div class="span7 well">
+    <table class="table table-condensed table-striped">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Admin?</th>
+        <th>Create Date</th>
+        <th>Updated Last</th>
+      </tr>
+      <% @cloud_account.cloud_users.each do |user| %>
+        <tr>
+          <td><%= link_to user.name, cloud_user_path(:id => user.id) %></td>
+          <td>link to email</td>
+          <td><%= user.admin %></td>
+          <td><%= user.created_at.to_formatted_s(:short) %></td>
+          <td><%= user.updated_at.to_formatted_s(:short) %></td>
+        </tr>
+        <% end %>
+      </table>
+
+
+        </div>
+      </div>
+
 
 
 <%= link_to 'Edit', edit_cloud_account_path(@cloud_account) %> |
