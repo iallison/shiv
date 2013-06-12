@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 $old_shiv = "/Users/jd/work/oldshiv/bin/shiv"
-$limit = 1;
+$limit = 0;
 
 # Create a new user account in the database first with a temporary password
 User.create([email: 'jd@sdsc.edu', password: 'changeme', password_confirmation: 'changeme'])
