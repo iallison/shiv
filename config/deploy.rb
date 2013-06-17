@@ -1,6 +1,7 @@
 set :application, "Shiv"
 set :repository,  "git@gitlab.sdsc.edu:shiv.git"
 set :user, "jenkins"
+set :use_sudo, false
 
 # set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
