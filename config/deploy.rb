@@ -9,6 +9,8 @@ role :web, "shiv.sdsc.edu"                          # Your HTTP server, Apache/e
 role :app, "shiv.sdsc.edu"                          # This may be the same as your `Web` server
 role :db,  "shiv.sdsc.edu", :primary => true        # This is where Rails migrations will run
 
+set :deploy_to, "/opt/#{application.downcase}"
+
 # if you want to clean up old releases on each deploy uncomment this:
 after "deploy:restart", "deploy:cleanup"
 
