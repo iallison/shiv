@@ -14,6 +14,9 @@ role :db,  "shiv.sdsc.edu", :primary => true        # This is where Rails migrat
 
 set :deploy_to, "/opt/#{application.downcase}"
 
+# symlink the database.yml file after updating the code
+after 'deploy:update_code', 'deploy:symlink_db'
+
 # if you want to clean up old releases on each deploy uncomment this:
 after "deploy:restart", "deploy:cleanup"
 
@@ -27,4 +30,14 @@ namespace :deploy do
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
+
+  desc "Symlinks the database.yml"
+  task :symlink_db, :roles => :app do
+    run "ln -nfs #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
+  end
+end
+
+
+
+namespace :deploy do
 end
