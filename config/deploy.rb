@@ -18,24 +18,19 @@ after 'deploy:update_code', 'deploy:symlink_db'
 # if you want to clean up old releases on each deploy uncomment this:
 after "deploy:restart", "deploy:cleanup"
 
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
-
-# If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
+
+  ## Override the start, stop, and restart tasks since we're using Passenger
   task :start do ; end
   task :stop do ; end
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 
+  # symlink the shared/config/database.yml so we don't have to store the db
+  # config in the repository
   desc "Symlinks the database.yml"
   task :symlink_db, :roles => :app do
     run "ln -nfs #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
   end
-end
-
-
-
-namespace :deploy do
 end
