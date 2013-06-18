@@ -1,5 +1,3 @@
-require 'bundler/capistrano'
-
 set :application, "Shiv"
 set :repository,  "git@gitlab.sdsc.edu:shiv.git"
 set :user, "jenkins"
