@@ -10,7 +10,7 @@ role :web, "shiv.sdsc.edu"                          # Your HTTP server, Apache/e
 role :app, "shiv.sdsc.edu"                          # This may be the same as your `Web` server
 role :db,  "shiv.sdsc.edu", :primary => true        # This is where Rails migrations will run
 
-set :deploy_to, "/opt/#{application.downcase}"
+set :deploy_to, "/opt/#{application.downcase}/server"
 
 # symlink the database.yml file after updating the code
 after 'deploy:update_code', 'deploy:symlink_db'
