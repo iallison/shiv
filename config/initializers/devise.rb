@@ -1,5 +1,6 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
+require 'devise'
 Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -187,7 +188,7 @@ Devise.setup do |config|
   # ==> Configuration for :token_authenticatable
   # Defines name of the authentication token params key
   config.token_authentication_key = :auth_token
-
+   #config.secret_key = '5392f66cb5b3602e7c438556bd4acddfa10f3b4233436e7613033db0f7c283d82df9e728051cd26ae8151a41dbaecee46d675c4ee29a25eb9b10ce47bc256ace'
   # ==> Scopes configuration
   # Turn scoped views on. Before rendering "sessions/new", it will first check for
   # "users/sessions/new". It's turned off by default because it's slower if you

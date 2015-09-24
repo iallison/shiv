@@ -17,7 +17,9 @@ Shiv::Application.routes.draw do
   match "tokens" => 'tokens#create', :via => :post
   match "token/:token" => 'tokens#destroy', :via => :delete
 
+  #resources :search
   match 'search/searchAll' => 'search#searchAll'
+  resources :search
   #match 'tagged' => 'hosts#tagged', :as => 'tagged'
 
   match 'cli/list_hosts' => 'hosts#list_hosts'

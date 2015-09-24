@@ -1,7 +1,35 @@
 class SearchController < ApplicationController
 
+  def index
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @hosts }
+      format.yaml { render :text => @hosts.to_yaml }
+    end
+
+  end
+
+  def show
+    
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @hosts }
+      format.yaml { render :text => @hosts.to_yaml }
+    end
+
+  end
+
+
   def searchAll
+
     @hosts = Host.find(:all, :conditions => ['lower(name) LIKE ?', "%#{params[:search_text].downcase}%"])
+    @host_attributes = HostAttributes.find(:all, :conditions => ['lower(name) LIKE ?', "%#{params[:search_text].downcase}%"])
+
+    @host_attributes.each do |h|
+      @hosts << Host.find("#{h[:id]}")
+    end
+
     Host.tagged_with([params[:search_text]], :wild => true, :any => true).each do |h|
       @hosts << h unless @hosts.include? h
     end

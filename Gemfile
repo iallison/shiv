@@ -31,6 +31,7 @@ end
 
 gem 'jquery-rails'
 
+gem 'minitest'
 group :development, :test do
   gem 'turn', '<0.8.3'
   gem 'rspec-rails'
