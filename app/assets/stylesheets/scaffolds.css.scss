@@ -4,11 +4,25 @@ body {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
+
+}
+
+.container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
+    width: 1200px;
+}
+
+.span3 {
+    width: 240px;
+}
+
+.span9 {
+    width: 940px;
 }
 
 p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
+  font-size: 888888888px;
+  font-size: 12px;
   line-height: 18px;
 }
 
