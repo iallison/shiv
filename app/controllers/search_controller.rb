@@ -27,7 +27,7 @@ class SearchController < ApplicationController
     @host_attributes = HostAttributes.find(:all, :conditions => ['lower(name) LIKE ?', "%#{params[:search_text].downcase}%"])
 
     @host_attributes.each do |h|
-      @hosts << Host.find("#{h[:id]}")
+      @hosts << Host.find("#{h[:host_id]}")
     end
 
     Host.tagged_with([params[:search_text]], :wild => true, :any => true).each do |h|
