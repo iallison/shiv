@@ -1,5 +1,5 @@
 class Host < ActiveRecord::Base
-  attr_accessible :ip, :kernel, :name, :operating_system, :os_release, :box_name, :box_id, :tag_list, :title
+  attr_accessible :ip, :kernel, :name, :operating_system, :os_release, :box_name, :box_id, :tag_list, :title, :serial, :memory, :cloud_environment
   belongs_to :box
   has_many :host_attributes
   acts_as_taggable_on :tags
