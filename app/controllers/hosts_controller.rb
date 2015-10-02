@@ -53,17 +53,27 @@ class HostsController < ApplicationController
   # POST /hosts
   # POST /hosts.json
   def create
-    @host = Host.new(params[:host])
-
-    respond_to do |format|
-      if @host.save
-        format.html { redirect_to @host, notice: 'Host was successfully created.' }
-        format.json { render json: @host, status: :created, location: @host }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @host.errors, status: :unprocessable_entity }
+    if Host.exists?(:name => params[:host][:name])
+      @host = Host.new(params[:host])
+      flash[:error] = "Host #{params[:host][:name]} exists."
+      message = { "message" => "Host #{params[:host][:name]} exists" }
+      respond_to do |format|
+        format.html { redirect_to :hosts, notice: 'Host #{@host} exists.' }
+        format.json { render json: message }
+      end
+    else
+      @host = Host.new(params[:host])
+      respond_to do |format|
+        if @host.save
+          format.html { redirect_to @host, notice: 'Host was successfully created.' }
+          format.json { render json: @host, status: :created, location: @host }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @host.errors, status: :unprocessable_entity }
+        end
       end
     end
+
   end
 
   # PUT /hosts/1
