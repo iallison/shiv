@@ -22,10 +22,17 @@ class SearchController < ApplicationController
 
 
   def searchAll
-
-    @hosts = Host.find(:all, :conditions => ['lower(name) LIKE ?', "%#{params[:search_text].downcase}%"])
+    puts "searchAll controller"
+    search_text = params[:search_text]
+    #@hosts = Host.find(:all, :conditions => ['lower(name) LIKE ? OR operating_system LIKE ?', "%#{params[:search_text].downcase}%", "%#{params[:search_text].downcase}%"])
+     @hosts = Host.where(%q[ lower(name) LIKE :search OR  
+                              lower(operating_system) LIKE :search OR
+                              lower(ip) LIKE :search OR
+                              lower(memory) LIKE :search ], :search=>"%#{params[:search_text].downcase}%").all
+    #@hosts = Host.find(:all, :conditions => ['lower(name) LIKE ?', "%#{params[:search_text].downcase}%"])
+    puts "HOSTS #{@hosts} "
     @host_attributes = HostAttributes.find(:all, :conditions => ['lower(name) LIKE ?', "%#{params[:search_text].downcase}%"])
-
+    puts "SEARCH #{params[:search_text].downcase}  ATTRS #{@host_attributes.inspect}"
     @host_attributes.each do |h|
       @hosts << Host.find("#{h[:host_id]}")
     end
@@ -44,6 +51,23 @@ class SearchController < ApplicationController
       format.json { render json: @hosts }
       format.yaml { render :text => @hosts.to_yaml }
     end
+  end
+
+  def searchTrait
+    trait_name,trait_value = params[:search_text].split("=")
+    @hosts = Host.find(:all, :conditions => ["lower(#{trait_name}) LIKE ?", "%#{trait_value.downcase}%"])
+    @host_attributes = HostAttributes.find(:all, :conditions => ["lower(name) LIKE ?", "%#{trait_value.downcase}%"])
+
+    @host_attributes.each do |h|
+      @hosts << Host.find("#{h[:host_id]}")
+    end
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @hosts }
+      format.yaml { render :text => @hosts.to_yaml }
+    end
+
   end
 
   def searchHost
