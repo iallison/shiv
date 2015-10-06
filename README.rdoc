@@ -1,13 +1,20 @@
-[Shiv](http://github.com/smeier00/shiv) is a free open source simple cmdb.
+Shiv is a free open source simple cmdb.
+====================================================
 
-# Features
+## <a name='toc'>Table of Contents</a>
+
+1. [Features](#features)
+
+####[[⬆]](#toc) <a name='features'>Features:</a>
+
 * Add 'host' objects and assign tags and traits to them
 * Search for host objects
 * CLI interface [shiv-cli](http://github.com/smeier00/shiv-cli)
 
 
-# Installation
-```bash
+####[[⬆]](#toc) <a name='installation'>Installation:</a>
+
+```
 apt-get install rubygems ruby build-essential git
 git clone https://github.com/smeier00/shiv.git
 cd shiv
