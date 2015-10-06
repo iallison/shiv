@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151002201809) do
+ActiveRecord::Schema.define(:version => 20151006210629) do
 
   create_table "box_attributes", :force => true do |t|
     t.integer  "box_id",     :null => false
@@ -106,7 +106,6 @@ ActiveRecord::Schema.define(:version => 20151002201809) do
     t.string   "ip"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
-    t.integer  "box_id"
     t.string   "serial"
     t.string   "memory"
     t.string   "cloud_environment"
