@@ -1,7 +1,6 @@
 <h2>Search Results</h2>
-
-<%= form_tag :controller => 'search', :action => 'searchAll', :method => 'get' do %>
+<%= form_tag :controller => 'search', :action => 'searchAll' do %>
     <%= text_field_tag :search_text, params[:search_text], :id => 'search_text' %>
-    <%= submit_tag "Search", :name => nil %> 
+    <%= submit_tag "Search", :name => nil %>
     <%= link_to_function "Clear", "$('search_field').clear()" %>
-<% end %> 
+<% end %>
