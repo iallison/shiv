@@ -3,7 +3,10 @@ Shiv is a free open source simple cmdb.
 
 ## <a name='toc'>Table of Contents</a>
 
-1. [Features](#features)
+  1. [Features](#features)
+  1. [Installation ](#installation)
+
+
 
 ####[[⬆]](#toc) <a name='features'>Features:</a>
 
