@@ -2,12 +2,14 @@
 
 <table class="table table-striped table-bordered table-hover table-condensed">
   <tr>
-    <th>Name</th>
-    <th>Environment</th>
-    <th>OS</th>
-    <th>Release</th>
-    <th>Memory</th>
-    <th>IP</th>
+    <th>name</th>
+    <th>cloud_environment</th>
+    <th>os</th>
+    <th>os_release</th>
+    <th>memory (GB)</th>
+    <th>serial</th>
+    <th>ip</th>
+    <th>ipmi_ipaddress</th>
     <th></th>
     <th></th>
   </tr>
@@ -18,8 +20,10 @@
     <td><%= host.cloud_environment %></td>
     <td><%= host.operating_system %></td>
     <td><%= host.os_release %></td>
-    <td><%= host.memory %> (GB)</td>
+    <td><%= host.memory %></td>
+    <td><%= host.serial %></td>
     <td><%= host.ip %></td>
+    <td><%= host.ipmi_ipaddress %></td>
     <td><%= link_to 'Edit', edit_host_path(host) %></td>
     <td><%= link_to 'Destroy', host, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>

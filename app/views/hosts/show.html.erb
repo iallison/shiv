@@ -1,28 +1,58 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Name:</b>
+  <b>name:</b>
   <%= @host.name %>
 </p>
 
 <p>
-  <b>Kernel:</b>
-  <%= @host.kernel %>
+  <b>cloud_environment:</b>
+  <%= @host.cloud_environment %>
 </p>
 
 <p>
-  <b>Operating system:</b>
+  <b>serial:</b>
+  <%= @host.serial %>
+</p>
+
+<p>
+  <b>operating_system:</b>
   <%= @host.operating_system %>
 </p>
 
 <p>
-  <b>Os release:</b>
+  <b>os_release:</b>
   <%= @host.os_release %>
 </p>
 
 <p>
-  <b>Ip:</b>
+  <b>kernel:</b>
+  <%= @host.kernel %>
+</p>
+
+<p>
+  <b>memory:</b>
+  <%= @host.kernel %>
+</p>
+
+<p>
+  <b>ip:</b>
   <%= @host.ip %>
+</p>
+
+<p>
+  <b>nic1_macaddress:</b>
+  <%= @host.nic1_macaddress %>
+</p>
+
+<p>
+  <b>ipmi_macaddress:</b>
+  <%= @host.ipmi_macaddress %>
+</p>
+
+<p>
+  <b>ipmi_ipmi_ipaddress:</b>
+  <%= @host.ipmi_ipaddress %>
 </p>
 
 <b>Extended Attributes:</b>
@@ -52,3 +82,5 @@
 
 <%= link_to 'Edit', edit_host_path(@host) %> |
 <%= link_to 'Back', hosts_path %>
+
+ <p> <%= @host.traits  %>  </br> </p>

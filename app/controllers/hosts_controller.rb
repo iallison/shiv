@@ -19,7 +19,7 @@ class HostsController < ApplicationController
 
     json = Hash.new
     json[:host] = @host.name
-    json.update(:hostings => [ @host.box.name ] ) unless @host.box_id.nil?
+    #json.update(:hostings => [ @host.box.name ] ) unless @host.box_id.nil?
     json.update(:traits =>  @host )
     json.update(:extendedtraits =>  @host.host_attributes.map { |a| {"#{a.name}" =>  "#{a.value}"} } ) unless @host.host_attributes.nil?
     json.update(:tags => @host.tags.map {|t| "#{t.name}" } ).flatten unless @host.tags.empty?

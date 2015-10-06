@@ -109,6 +109,9 @@ ActiveRecord::Schema.define(:version => 20151006210629) do
     t.string   "serial"
     t.string   "memory"
     t.string   "cloud_environment"
+    t.string   "macaddress_nic1"
+    t.string   "ipmi_macaddress"
+    t.string   "ipmi_ipaddress"
   end
 
   create_table "taggings", :force => true do |t|
