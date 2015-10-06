@@ -18,11 +18,11 @@ class HostsController < ApplicationController
     @host = Host.find(params[:id])
 
     json = Hash.new
-    json[:Host] = [@host.name]
-    json.update(:Hostings => [ @host.box.name ] ) unless @host.box_id.nil?
-    json.update(:Traits => [ @host ])
-    json.update(:ExtendedTraits => [ @host.host_attributes.map { |a| {"#{a.name}" =>  "#{a.value}"} } ].flatten) unless @host.host_attributes.nil?
-    json.update(:Tags => @host.tags.map {|t| "#{t.name}" } ).flatten unless @host.tags.empty?
+    json[:host] = @host.name
+    json.update(:hostings => [ @host.box.name ] ) unless @host.box_id.nil?
+    json.update(:traits =>  @host )
+    json.update(:extendedtraits =>  @host.host_attributes.map { |a| {"#{a.name}" =>  "#{a.value}"} } ) unless @host.host_attributes.nil?
+    json.update(:tags => @host.tags.map {|t| "#{t.name}" } ).flatten unless @host.tags.empty?
     if params[:notes] == "true"
       json.update(:Notes => @host.comments.map { |c| "#{c.comment} (#{c.created_at})"}).flatten unless @host.comments.empty?
     end
