@@ -23,6 +23,7 @@ Shiv::Application.routes.draw do
   #match 'tagged' => 'hosts#tagged', :as => 'tagged'
 
   match 'cli/list_hosts' => 'hosts#list_hosts'
+  match 'cli/list_host_details' => 'hosts#list_host_details'
   match 'cli/list_boxes' => 'boxes#list_boxes'
   match 'cli/list_contacts' => 'contacts#list_contacts'
   match 'cli/searchAll' => 'search#searchAll'

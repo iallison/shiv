@@ -139,5 +139,20 @@ class HostsController < ApplicationController
     end
   end
 
+  def list_host_details
+    json = Hash.new
+    @hosts = Host.find(:all)
+    #@hosts.each do |host|
+    #  json.update(:traits =>  host )
+    #  json.update(:extendedtraits =>  host.host_attributes.map { |a| {"#{a.name}" =>  "#{a.value}"} } ) unless host.host_attributes.nil?
+    #end
+    #json.update(:traits =>  @hosts )
+    #json.update(:extendedtraits =>  @hosts.host_attributes.map { |a| {"#{a.name}" =>  "#{a.value}"} } ) unless @hosts.host_attributes.nil?
+    respond_to do |format|
+      format.json { render json: @hosts}
+      format.yaml { render :text => @hosts.to_yaml }
+    end
+  end
+
 
 end
