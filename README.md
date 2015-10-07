@@ -6,6 +6,7 @@ Shiv is a free open source simple cmdb.
   1. [Features](#features)
   1. [Installation ](#installation)
   1. [Screenshots ](#screenshots)
+  1. [Contributors ](#contributors)
 
 
 
@@ -28,3 +29,13 @@ sudo script/rails server --port 80
 ```
 
 ####[[⬆]](#toc) <a name='screenshots'>Screenshots:</a>
+
+
+
+
+
+####[[⬆]](#toc) <a name='contributors'>Contibutors:</a>
+* Chris McEniry   (cmceniry@mit.edu)
+* JD Bottorf      (jdbottorf@gmail.com)
+* Brian Battistuz (bbattistuz@gmail.com)
+* Doug Weimer     (dweimer@gmail.com)
