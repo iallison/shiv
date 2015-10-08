@@ -1,0 +1,27 @@
+<h3>Listing cloud_environments</h3>
+
+<table class="table table-striped table-bordered table-hover table-condensed">
+  <tr>
+    <th>Name</th>
+    <th>host_network</th>
+    <th>host_vlan</th>
+    <th>host_gateway</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @cloud_environments.each do |cloud_environment| %>
+  <tr>
+    <td><%= link_to cloud_environment.name, cloud_environment %></td>
+    <td><%= cloud_environment.host_network %></td>
+    <td><%= cloud_environment.host_vlan %></td>
+    <td><%= cloud_environment.host_gateway %></td>
+    <td><%= link_to 'Edit', edit_cloud_environment_path(cloud_environment) %></td>
+    <td><%= link_to 'Destroy', cloud_environment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Cloud environment', new_cloud_environment_path %>

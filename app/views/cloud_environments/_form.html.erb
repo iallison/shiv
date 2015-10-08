@@ -1,0 +1,86 @@
+<%= form_for(@cloud_environment) do |f| %>
+  <% if @cloud_environment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@cloud_environment.errors.count, "error") %> prohibited this cloud_account from being saved:</h2>
+
+      <ul>
+      <% @cloud_environment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :host_network %><br />
+    <%= f.text_field :host_network %>
+  </div>
+  <div class="field">
+    <%= f.label :host_vlan %><br />
+    <%= f.text_field :host_vlan %>
+  </div>
+  <div class="field">
+    <%= f.label :host_gateway %><br />
+    <%= f.text_field :host_gateway %>
+  </div>
+
+  <div class="field">
+    <%= f.label :container_network %><br />
+    <%= f.text_field :container_network %>
+  </div>
+  <div class="field">
+    <%= f.label :container_vlan %><br />
+    <%= f.text_field :container_vlan %>
+  </div>
+  <div class="field">
+    <%= f.label :container_gateway %><br />
+    <%= f.text_field :container_gateway %>
+  </div>
+
+ <div class="field">
+    <%= f.label :overlay_network %><br />
+    <%= f.text_field :overlay_network %>
+  </div>
+  <div class="field">
+    <%= f.label :overlay_vlan %><br />
+    <%= f.text_field :overlay_vlan %>
+  </div>
+  <div class="field">
+    <%= f.label :overlay_gateway %><br />
+    <%= f.text_field :overlay_gateway %>
+  </div>
+
+ <div class="field">
+    <%= f.label :storage_network %><br />
+    <%= f.text_field :storage_network %>
+  </div>
+  <div class="field">
+    <%= f.label :storage_vlan %><br />
+    <%= f.text_field :storage_vlan %>
+  </div>
+  <div class="field">
+    <%= f.label :storage_gateway %><br />
+    <%= f.text_field :storage_gateway %>
+  </div>
+
+   <div class="field">
+    <%= f.label :swift_network %><br />
+    <%= f.text_field :swift_network %>
+  </div>
+  <div class="field">
+    <%= f.label :swift_vlan %><br />
+    <%= f.text_field :swift_vlan %>
+  </div>
+  <div class="field">
+    <%= f.label :swift_gateway %><br />
+    <%= f.text_field :swift_gateway %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
