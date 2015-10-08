@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151006210629) do
+ActiveRecord::Schema.define(:version => 20151007041353) do
 
   create_table "box_attributes", :force => true do |t|
     t.integer  "box_id",     :null => false
@@ -41,6 +41,27 @@ ActiveRecord::Schema.define(:version => 20151006210629) do
     t.string   "organization"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "cloud_environments", :force => true do |t|
+    t.string   "name"
+    t.string   "host_network"
+    t.string   "host_gateway"
+    t.string   "host_vlan"
+    t.string   "container_network"
+    t.string   "container_vlan"
+    t.string   "container_gateway"
+    t.string   "overlay_network"
+    t.string   "overlay_vlan"
+    t.string   "overlay_gateway"
+    t.string   "storage_network"
+    t.string   "storage_vlan"
+    t.string   "storage_gateway"
+    t.string   "swift_network"
+    t.string   "swift_vlan"
+    t.string   "swift_gateway"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "cloud_user_attributes", :force => true do |t|
@@ -109,9 +130,9 @@ ActiveRecord::Schema.define(:version => 20151006210629) do
     t.string   "serial"
     t.string   "memory"
     t.string   "cloud_environment"
-    t.string   "macaddress_nic1"
     t.string   "ipmi_macaddress"
     t.string   "ipmi_ipaddress"
+    t.string   "nic1_macaddress"
   end
 
   create_table "taggings", :force => true do |t|
