@@ -1,9 +1,12 @@
 Shiv::Application.routes.draw do
+  resources :cloud_environments
   resources :cloud_users
 
 
   resources :cloud_accounts
+  resources :cloud_environments
 
+  
 
   resources :contacts
 
@@ -17,7 +20,7 @@ Shiv::Application.routes.draw do
   match "tokens" => 'tokens#create', :via => :post
   match "token/:token" => 'tokens#destroy', :via => :delete
 
-  #resources :search
+  resources :cloud_environments
   match 'search/searchAll' => 'search#searchAll'
   resources :search
   #match 'tagged' => 'hosts#tagged', :as => 'tagged'
