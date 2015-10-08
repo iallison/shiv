@@ -1,0 +1,2 @@
+module CloudEnvironmentsHelper
+end
