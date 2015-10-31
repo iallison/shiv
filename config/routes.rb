@@ -1,7 +1,9 @@
 Shiv::Application.routes.draw do
+
   resources :cloud_environments
   resources :cloud_users
 
+  #resources :users
 
   resources :cloud_accounts
   resources :cloud_environments
@@ -13,6 +15,7 @@ Shiv::Application.routes.draw do
 
   devise_for :users
 
+  resources  :users
   root :to => 'hosts#index'
   resources :hosts
   resources :boxes

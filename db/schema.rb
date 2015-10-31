@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151007041353) do
+ActiveRecord::Schema.define(:version => 20151028192057) do
 
   create_table "box_attributes", :force => true do |t|
     t.integer  "box_id",     :null => false
@@ -60,9 +60,22 @@ ActiveRecord::Schema.define(:version => 20151007041353) do
     t.string   "swift_network"
     t.string   "swift_vlan"
     t.string   "swift_gateway"
+    t.string   "internal_vip"
+    t.string   "external_vip"
+    t.text     "notes"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
+
+  create_table "cloud_environments_attributes", :force => true do |t|
+    t.integer  "cloud_environments_id", :null => false
+    t.text     "name",                  :null => false
+    t.text     "value",                 :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
+
+  add_index "cloud_environments_attributes", ["cloud_environments_id"], :name => "index_cloud_environments_attributes_on_cloud_environments_id"
 
   create_table "cloud_user_attributes", :force => true do |t|
     t.integer  "cloud_user_id", :null => false
@@ -125,14 +138,16 @@ ActiveRecord::Schema.define(:version => 20151007041353) do
     t.string   "operating_system"
     t.string   "os_release"
     t.string   "ip"
+    t.string   "nic1_macaddress"
+    t.string   "ipmi_macaddress"
+    t.string   "ipmi_ipaddress"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
     t.string   "serial"
     t.string   "memory"
     t.string   "cloud_environment"
-    t.string   "ipmi_macaddress"
-    t.string   "ipmi_ipaddress"
-    t.string   "nic1_macaddress"
+    t.string   "location"
+    t.string   "role"
   end
 
   create_table "taggings", :force => true do |t|
@@ -170,6 +185,8 @@ ActiveRecord::Schema.define(:version => 20151007041353) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "authentication_token"
+    t.string   "roles"
+    t.string   "roles_mask"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
   end

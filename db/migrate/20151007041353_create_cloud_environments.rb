@@ -18,6 +18,9 @@ class CreateCloudEnvironments < ActiveRecord::Migration
       t.string :swift_network
       t.string :swift_vlan
       t.string :swift_gateway
+      t.string :internal_vip
+      t.string :external_vip
+      t.text   :notes
 
       t.timestamps
     end

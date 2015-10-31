@@ -28,7 +28,13 @@ class SearchController < ApplicationController
      @hosts = Host.where(%q[ lower(name) LIKE :search OR  
                               lower(operating_system) LIKE :search OR
                               lower(ip) LIKE :search OR
-                              lower(memory) LIKE :search ], :search=>"%#{params[:search_text].downcase}%").all
+                              lower(memory) LIKE :search OR
+                              lower(serial) LIKE :search OR
+                              lower(os_release) LIKE :search OR
+                              lower(cloud_environment) LIKE :search OR
+                              lower(nic1_macaddress) LIKE :search OR
+                              lower(ipmi_ipaddress) LIKE :search OR
+                              lower(ipmi_macaddress) LIKE :search  ], :search=>"%#{params[:search_text].downcase.strip}%").all
     #@hosts = Host.find(:all, :conditions => ['lower(name) LIKE ?', "%#{params[:search_text].downcase}%"])
     puts "HOSTS #{@hosts} "
     @host_attributes = HostAttributes.find(:all, :conditions => ['lower(name) LIKE ?', "%#{params[:search_text].downcase}%"])

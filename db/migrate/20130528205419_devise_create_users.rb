@@ -32,6 +32,9 @@ class DeviseCreateUsers < ActiveRecord::Migration
 
       ## Token authenticatable
       t.string :authentication_token
+      ## Roles
+      t.string :roles
+      t.string :roles_mask
 
       t.timestamps
     end

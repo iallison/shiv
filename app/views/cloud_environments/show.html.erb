@@ -9,6 +9,14 @@
         <td><%= @cloud_environment.name %></td>
       </tr>
       <tr>
+        <td>internal_vip:</td>
+        <td><%= @cloud_environment.internal_vip %></td>
+      </tr>
+      <tr>
+        <td>external_vip:</td>
+        <td><%= @cloud_environment.external_vip %></td>
+      </tr>
+      <tr>
         <td>host_network:</td>
         <td><%= @cloud_environment.host_network %></td>
       </tr>
@@ -72,7 +80,10 @@
         <td>swift_gateway:</td>
         <td><%= @cloud_environment.swift_gateway %></td>
       </tr>
-
+      <tr>
+        <td>notes:</td>
+        <td><%= @cloud_environment.swift_gateway %></td>
+      </tr>
 
     </table>
 

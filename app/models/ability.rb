@@ -35,7 +35,8 @@ class Ability
       can :manage, [Host, Box]
       can :read, User
     elsif user.has_role? :guest
-      cannot :read, :all
+      can :read, :all
+      cannot :manage, [Host, Box, User]
     end
   end
 end

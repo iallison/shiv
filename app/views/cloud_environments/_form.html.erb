@@ -16,6 +16,14 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
+    <%= f.label :internal_vip %><br />
+    <%= f.text_field :internal_vip %>
+  </div>
+  <div class="field">
+    <%= f.label :external_vip %><br />
+    <%= f.text_field :external_vip %>
+  </div>
+  <div class="field">
     <%= f.label :host_network %><br />
     <%= f.text_field :host_network %>
   </div>
@@ -80,6 +88,10 @@
     <%= f.text_field :swift_gateway %>
   </div>
 
+  <div class="field">
+    <%= f.label :notes %><br />
+    <%= f.text_field :notes %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
