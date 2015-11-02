@@ -1,4 +1,4 @@
-Shiv is a free open source simple cmdb.
+Shiv is a opensource simple cmdb. Provides simple interface (web/api/cli) to store and search for host objects. 
 ====================================================
 
 ## <a name='toc'>Table of Contents</a>
