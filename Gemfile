@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '6.0.3.5'
 gem 'bootstrap-sass'
 
-gem 'acts-as-taggable-on'
+gem 'acts-as-taggable-on', '>= 3.1.0'
 gem 'acts_as_commentable', '3.0.1'
 gem 'acts_as_eav_model', :git => 'git://github.com/kaboom-org/acts_as_eav_model.git'
 
