@@ -37,7 +37,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'growl'
-  gem 'capybara'
+  gem 'capybara', '>= 2.2.0'
   gem 'factory_girl_rails'
   gem 'awesome_print'
   gem 'pry-rails'
