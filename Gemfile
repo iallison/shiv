@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '6.1.7.9'
 gem 'bootstrap-sass'
 
-gem 'acts-as-taggable-on'
+gem 'acts-as-taggable-on', '>= 3.1.0'
 gem 'acts_as_commentable', '3.0.1'
 gem 'acts_as_eav_model', :git => 'git://github.com/kaboom-org/acts_as_eav_model.git'
 
@@ -20,7 +20,7 @@ gem 'mysql2'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
+  gem 'sass-rails', '~> 6.0.0'
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
