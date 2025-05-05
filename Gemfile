@@ -34,7 +34,7 @@ gem 'jquery-rails'
 gem 'minitest'
 group :development, :test do
   gem 'turn', '<0.8.3'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '>= 8.0.0'
   gem 'guard-rspec'
   gem 'growl'
   gem 'capybara'
